@@ -1,27 +1,24 @@
 package models;
 
-import play.ext.jj.jpa.models.Model;
-import play.ext.jj.jpa.query.Query;
+import com.play4jpa.jpa.models.Finder;
+import com.play4jpa.jpa.models.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * The User
  *
  * @author Jens (mail@jensjaeger.com)
+ * @author rosem
  */
 @Entity
 public class User extends Model<User> {
 
-    public String name;
+    public static Finder<String, User> find = new Finder(String.class, User.class);
 
+    @Id
     public String email;
 
-    public static Query<User> query() {
-        return query(User.class);
-    }
-
-    public static User findByEmail(String email) {
-        return query().eq("email", email).findUnique();
-    }
+    public String name;
 }

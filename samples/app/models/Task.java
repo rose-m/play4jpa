@@ -1,20 +1,28 @@
 package models;
 
+import com.play4jpa.jpa.models.Finder;
+import com.play4jpa.jpa.models.Model;
 import play.db.jpa.JPA;
-import play.ext.jj.jpa.models.Model;
-import play.ext.jj.jpa.query.Query;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.List;
 
 /**
  * Model to handle tasks
  *
  * @author Jens (mail@jensjaeger.com)
+ * @author rosem
  */
-@Entity(name = "tasks")
+@Entity
 public class Task extends Model<Task> {
+
+    public static Finder<Long, Task> find = new Finder(Long.class, Task.class);
+
+    @GeneratedValue
+    @Id
+    public Long id;
 
     //@Column(unique=true)
     public String name;
@@ -27,25 +35,9 @@ public class Task extends Model<Task> {
     /**
      * Sample method to demonstrate how to do find with Hql
      */
-    public static Task findByNameWithHql(String name){
+    public static Task findByNameWithHql(String name) {
         return JPA.em().createQuery("from models.Task where name = :name", Task.class)
-                       .setParameter("name", name)
-                       .getSingleResult();
-    }
-
-    public static Query<Task> query(){
-        return query(Task.class);
-    }
-
-    public static Task findByName(String name){
-        return Task.query().eq("name", name).findUnique();
-    }
-
-    public static List<Task> findByCreatorName(String creatorName){
-        return Task.query().join("creator").eq("creator.name", creatorName).findList();
-    }
-
-    public static List<Task> findAll(){
-        return Task.query().findList();
+                .setParameter("name", name)
+                .getSingleResult();
     }
 }

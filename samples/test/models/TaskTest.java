@@ -1,9 +1,9 @@
 package models;
 
+import com.play4jpa.jpa.models.ModelTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import play.ext.jj.jpa.test.ModelTest;
 import play.test.FakeApplication;
 import play.test.Helpers;
 
@@ -29,7 +29,6 @@ public class TaskTest extends ModelTest {
     public void before() {
         app = fakeApplication(inMemoryDatabase());
         Helpers.start(app);
-
         beforeEachTest();
     }
 
@@ -37,7 +36,6 @@ public class TaskTest extends ModelTest {
     @Override
     public void after() {
         afterEachTest();
-
         Helpers.stop(app);
     }
 
@@ -47,16 +45,15 @@ public class TaskTest extends ModelTest {
     }
 
     @Test
-    public void testFindByName(){
-        assertNotNull(em);
-        Task task = Task.findByName("Task 1");
+    public void testFindByName() {
+        Task task = Task.find.query().eq("name", "Task 1").findUnique();
+        assertNotNull(task);
         assertEquals("Task 1", task.name);
     }
 
     @Test
-    public void testFindByCreatorName(){
-        assertNotNull(em);
-        List<Task> tasks = Task.findByCreatorName("jens");
+    public void testFindByCreatorName() {
+        List<Task> tasks = Task.find.query().join("creator").eq("creator.name", "jens").findList();
         assertEquals(2, tasks.size());
     }
 }

@@ -1,7 +1,7 @@
 Play Framework 2.2.x module for JPA with Hibernate
 ==================================================
 
-Main code by [Jens Jaeger](https://github.com/jensjaeger/play4jpa).
+Original code by [Jens Jaeger](https://github.com/jensjaeger/play4jpa).
 
 Why do we need this?
 --------------------

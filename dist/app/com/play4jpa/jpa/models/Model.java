@@ -59,6 +59,9 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
         log.trace("preSave() finished");
         Db.em().persist(this);
         Db.setCommitNeeded();
+        log.trace("Running postSave() on: {}", this.toString());
+        postSave();
+        log.trace("postSave() finished");
     }
 
     /**
@@ -71,6 +74,10 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
         play.db.jpa.JPA.em().remove(this);
         Db.setCommitNeeded();
+
+        log.trace("Running postDelete() on: {}", this.toString());
+        postDelete();
+        log.trace("postDelete() finished", this.toString());
     }
 
     /**
@@ -107,10 +114,26 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
     }
 
     /**
+     * Called after a new model is inserted into the database, i.e. generated values will be populated.
+     * <p/>
+     * Override this method in subclasses if needed.
+     */
+    protected void postSave() {
+    }
+
+    /**
      * Called before an existing model is deleted from the database.
      * <p/>
      * Override this method in subclasses if needed.
      */
     protected void preDelete() {
+    }
+
+    /**
+     * Called after an existing model is deleted from the database.
+     * <p/>
+     * Override this method in subclasses if needed.
+     */
+    protected void postDelete() {
     }
 }
