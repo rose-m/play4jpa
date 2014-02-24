@@ -15,9 +15,8 @@ import java.util.List;
  * Model to handle tasks
  *
  * @author Jens (mail@jensjaeger.com)
- * @author rosem
  */
-@Entity
+@Entity(name = "tasks")
 public class Task extends Model<Task> {
 
     @GeneratedValue
@@ -35,15 +34,14 @@ public class Task extends Model<Task> {
     /**
      * Sample method to demonstrate how to do find with Hql
      */
-    public static Task findByNameWithHql(String name) {
+    public static Task findByNameWithHql(String name){
         return JPA.em().createQuery("from models.Task where name = :name", Task.class)
-                .setParameter("name", name)
-                .getSingleResult();
+                       .setParameter("name", name)
+                       .getSingleResult();
     }
 
-
     public static Query<Task> query(){
-	    return find.query();
+        return find.query();
     }
 
     public static Task findByName(String name){

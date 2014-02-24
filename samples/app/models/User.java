@@ -12,7 +12,6 @@ import javax.persistence.Id;
  * The User
  *
  * @author Jens (mail@jensjaeger.com)
- * @author rosem
  */
 @Entity
 public class User extends Model<User> {
@@ -22,8 +21,12 @@ public class User extends Model<User> {
 
     public String name;
 
+    public static Query<User> query() {
+        return find.query();
+    }
+
     public static User findByEmail(String email) {
-        return find.query().eq("email", email).findUnique();
+        return query().eq("email", email).findUnique();
     }
 
     public static Finder<String, User> find = new Finder<>(String.class, User.class);
