@@ -106,6 +106,14 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
     }
 
     /**
+     * Called after an existing model has been updated in the database.
+     * <p/>
+     * Override this method in subclasses if needed.
+     */
+    protected void postUpdate() {
+    }
+
+    /**
      * Called before a new model is inserted into the database.
      * <p/>
      * Override this method in subclasses if needed.
