@@ -16,11 +16,11 @@ import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 
 /**
- * Unit test for {@link Task}
+ * Unit test for {@link User} model
  *
  * @author Jens (mail@jensjaeger.com)
  */
-public class TaskTest extends ModelTest {
+public class UserTest extends ModelTest {
 
     FakeApplication app;
 
@@ -47,16 +47,9 @@ public class TaskTest extends ModelTest {
     }
 
     @Test
-    public void testFindByName(){
+    public void testFindByEmail(){
         assertNotNull(em);
-        Task task = Task.findByName("Task 1");
-        assertEquals("Task 1", task.name);
-    }
-
-    @Test
-    public void testFindByCreatorName(){
-        assertNotNull(em);
-        List<Task> tasks = Task.findByCreatorName("jens");
-        assertEquals(2, tasks.size());
+        User user = User.findByEmail("mail@jensjaeger.com");
+        assertEquals("jens", user.name);
     }
 }
