@@ -38,8 +38,13 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
         log.trace("Running preUpdate() on: {}", this.toString());
         preUpdate();
         log.trace("preUpdate() finished");
+
         Db.em().merge(this);
         Db.setCommitNeeded();
+
+        log.trace("Running postUpdate() on: {}", this.toString());
+        postUpdate();
+        log.trace("postUpdate() finished");
     }
 
     /**
@@ -57,8 +62,10 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
         log.trace("Running preSave() on: {}", this.toString());
         preSave();
         log.trace("preSave() finished");
+
         Db.em().persist(this);
         Db.setCommitNeeded();
+
         log.trace("Running postSave() on: {}", this.toString());
         postSave();
         log.trace("postSave() finished");
