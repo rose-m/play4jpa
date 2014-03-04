@@ -15,7 +15,7 @@ import java.util.List;
  * @author Jens (mail@jensjaeger.com)
  * @author rosem
  */
-public final class Finder<I, T extends Model<T>> {
+public final class Finder<I, T extends Model> {
 
     /**
      * {@link java.lang.Class} of queried entity.
