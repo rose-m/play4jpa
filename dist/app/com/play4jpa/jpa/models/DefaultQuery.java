@@ -12,9 +12,6 @@ import org.hibernate.ejb.HibernateEntityManager;
 import org.hibernate.sql.JoinType;
 import play.db.jpa.JPA;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.*;
 
 /**
@@ -376,19 +373,28 @@ public class DefaultQuery<T> implements Query<T> {
     @Override
     public int findMaxValue(String field) {
         criteria.setProjection(Projections.max(field));
-        final Integer result = (Integer)executablePlainCriteria().uniqueResult();
+        final Integer result = (Integer) executablePlainCriteria().uniqueResult();
         criteria.setProjection(null);
-        return result != null ? result.intValue() : 0 ;
+        return result != null ? result.intValue() : 0;
     }
 
     @Override
     public PagedQueryIterator<T> findPagedIterator(int pageSize) {
-        return null;
+        return findPagedIterator(1, pageSize);
     }
 
     @Override
     public PagedQueryIterator<T> findPagedIterator(int startPage, int pageSize) {
-        return null;
+        if (startPage < 1) {
+            throw new IllegalArgumentException("startPage must not be smaller than 1");
+        }
+        if (pageSize < 1) {
+            throw new IllegalArgumentException("pageSize must not be smaller than 1");
+        }
+
+        PagedQueryIterator<T> iterator = new PagedQueryIterator<>(this, pageSize);
+        iterator.setPageNo(startPage);
+        return iterator;
     }
 
     @Override
