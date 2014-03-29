@@ -29,10 +29,14 @@ public class Db extends play.db.jpa.JPA {
     /**
      * Run a block of code in a JPA transaction and return a value.
      *
-     * @param block Block to execute
-     * @param <T>   Type of return value
+     * @param block
+     *         Block to execute
+     * @param <T>
+     *         Type of return value
      * @return Return value of block
-     * @throws java.lang.Throwable by block.invoke()
+     *
+     * @throws java.lang.Throwable
+     *         by block.invoke()
      */
     public static <T> T withTx(play.libs.F.Function0<T> block) throws Throwable {
         return withTx("default", false, block);
@@ -41,8 +45,10 @@ public class Db extends play.db.jpa.JPA {
     /**
      * Run a block of code in a JPA transaction without returning a value.
      *
-     * @param block Block to execute
-     * @throws java.lang.Throwable by block.invoke()
+     * @param block
+     *         Block to execute
+     * @throws java.lang.Throwable
+     *         by block.invoke()
      */
     public static void withTx(final play.libs.F.Callback0 block) throws Throwable {
         withTx("default", false, new play.libs.F.Function0<Void>() {
@@ -57,11 +63,16 @@ public class Db extends play.db.jpa.JPA {
     /**
      * Run a block of code in a JPA transaction for a specific persistence unit and return a value.
      *
-     * @param name     Persistence unit name
-     * @param readOnly If true, transaction is read-only
-     * @param block    Block to execute
+     * @param name
+     *         Persistence unit name
+     * @param readOnly
+     *         If true, transaction is read-only
+     * @param block
+     *         Block to execute
      * @return Return value of block
-     * @throws java.lang.Throwable by block.invoke()
+     *
+     * @throws java.lang.Throwable
+     *         by block.invoke()
      */
     public static <T> T withTx(String name, boolean readOnly, play.libs.F.Function0<T> block) throws Throwable {
         EntityManager em = null;

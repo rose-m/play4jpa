@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Generic Test setup for all Model tests.
- * <p/>
+ *
  * Handles the fakeApplication startup, loads an fresh in memory database before each test and loads the fixtures.
  *
  * @author Jens (mail@jensjaeger.com)
@@ -31,6 +31,31 @@ public abstract class ModelTest {
      * Transaction to use (created for each test case).
      */
     protected EntityTransaction tx = null;
+
+    /**
+     * Get the default path to where your fixtures are located.
+     *
+     * @return Path to fixtures' folder
+     */
+    public static String getDefaultFixturePath() {
+        return DEFAULT_FIXTURE_PATH;
+    }
+
+    /**
+     * Map the given fixture names to full paths using the pattern fixturePath/name.yaml where fixturePath
+     * is determined by {@link #getDefaultFixturePath()}.
+     *
+     * @param names
+     *         Fixture names
+     * @return Paths to fixtures
+     */
+    public static String[] pathsForFixtureNames(List<String> names) {
+        List<String> fixtureNames = new ArrayList<>();
+        for (String name : names) {
+            fixtureNames.add(getDefaultFixturePath() + "/" + name + ".yaml");
+        }
+        return fixtureNames.toArray(new String[0]);
+    }
 
     /**
      * Load fixtures and open a new transaction.
@@ -59,37 +84,13 @@ public abstract class ModelTest {
 
     /**
      * Template method - override if needed.
-     * <p/>
+     *
      * Return a list of fixture names (placed in conf/fixtures) to load before each test.
      *
      * @return Fixtures to load
      */
     public List<String> fixturesToLoad() {
         return new ArrayList<>();
-    }
-
-    /**
-     * Get the default path to where your fixtures are located.
-     *
-     * @return Path to fixtures' folder
-     */
-    public static String getDefaultFixturePath() {
-        return DEFAULT_FIXTURE_PATH;
-    }
-
-    /**
-     * Map the given fixture names to full paths using the pattern fixturePath/name.yaml where fixturePath
-     * is determined by {@link #getDefaultFixturePath()}.
-     *
-     * @param names Fixture names
-     * @return Paths to fixtures
-     */
-    public static String[] pathsForFixtureNames(List<String> names) {
-        List<String> fixtureNames = new ArrayList<>();
-        for (String name : names) {
-            fixtureNames.add(getDefaultFixturePath() + "/" + name + ".yaml");
-        }
-        return fixtureNames.toArray(new String[0]);
     }
 
     /**

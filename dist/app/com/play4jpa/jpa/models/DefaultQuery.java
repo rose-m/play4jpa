@@ -17,7 +17,8 @@ import java.util.*;
 /**
  * Default Implementation of the {@link com.play4jpa.jpa.query.Query} interface.
  *
- * @param <T> Type of queried entity
+ * @param <T>
+ *         Type of queried entity
  * @author Jens (mail@jensjaeger.com)
  * @author rosem
  */
@@ -25,7 +26,7 @@ public class DefaultQuery<T> implements Query<T> {
 
     /**
      * Maximum number of values for one single (not) IN restriction.
-     * <p/>
+     *
      * If the number of values is greater, multiple (not) IN clauses will be added.
      */
     public static final int MAX_IN_SIZE = 500;
@@ -78,7 +79,8 @@ public class DefaultQuery<T> implements Query<T> {
     /**
      * Create a new query for given entity type without a proxy.
      *
-     * @param entityClass Queried entity class
+     * @param entityClass
+     *         Queried entity class
      */
     public DefaultQuery(Class<T> entityClass) {
         this(entityClass, null);
@@ -87,8 +89,10 @@ public class DefaultQuery<T> implements Query<T> {
     /**
      * Create a new query for given entity type and using given proxy.
      *
-     * @param entityClass Queried entity class
-     * @param proxy       Proxy to apply additional restrictions
+     * @param entityClass
+     *         Queried entity class
+     * @param proxy
+     *         Proxy to apply additional restrictions
      */
     public DefaultQuery(Class<T> entityClass, QueryProxy<T> proxy) {
         this.entityClass = entityClass;
@@ -486,7 +490,8 @@ public class DefaultQuery<T> implements Query<T> {
      * {@link org.hibernate.transform.DistinctRootEntityResultTransformer} will be added (needed if you want to
      * get entities out of the query).
      *
-     * @param forRootEntity True, if entities should be returned by the query
+     * @param forRootEntity
+     *         True, if entities should be returned by the query
      * @return Executable criteria
      */
     private Criteria executableCriteria(boolean forRootEntity) {
@@ -513,8 +518,10 @@ public class DefaultQuery<T> implements Query<T> {
     /**
      * Transform subQuery into detached criteria and apply projection if given.
      *
-     * @param subQuery   Sub query to transform (must not be this)
-     * @param projection Projection to apply (can be null)
+     * @param subQuery
+     *         Sub query to transform (must not be this)
+     * @param projection
+     *         Projection to apply (can be null)
      * @return Detached criteria representing subQuery
      */
     private DetachedCriteria criteriaForSubQuery(Query<?> subQuery, Projection projection) {
@@ -560,8 +567,10 @@ public class DefaultQuery<T> implements Query<T> {
         /**
          * Create a new collection iterator where each smaller collection has at most batchSize values.
          *
-         * @param batchSize Size of smaller collections
-         * @param values    Collection to split
+         * @param batchSize
+         *         Size of smaller collections
+         * @param values
+         *         Collection to split
          */
         public SplitCollectionIterator(int batchSize, Collection<T> values) {
             this.batchSize = batchSize;

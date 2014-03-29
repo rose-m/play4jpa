@@ -5,11 +5,12 @@ import java.util.List;
 
 /**
  * Iterator for a paged result set of a {@link Query}.
- * <p/>
+ *
  * This will load entities in batches of the given page size. <b>Be sure to always use {@link #hasNext()} to ensure
  * that there are populated results available.</b>
  *
- * @param <T> Type of queried entity
+ * @param <T>
+ *         Type of queried entity
  * @author Jens (mail@jensjaeger.com)
  * @author rosem
  */
@@ -43,8 +44,10 @@ public final class PagedQueryIterator<T> implements Iterator<T> {
     /**
      * Create a new paged iterator for wrapping the given query and using the given page size.
      *
-     * @param query       Query to page results for
-     * @param rowsPerPage Number of results per page
+     * @param query
+     *         Query to page results for
+     * @param rowsPerPage
+     *         Number of results per page
      */
     public PagedQueryIterator(Query<T> query, int rowsPerPage) {
         if (query == null) {
@@ -79,10 +82,11 @@ public final class PagedQueryIterator<T> implements Iterator<T> {
 
     /**
      * Set page number to retrieve.
-     * <p/>
+     *
      * This will reset the current data and fetch the new page once you call {@link #hasNext()}.
      *
-     * @param pageNo Requested page number
+     * @param pageNo
+     *         Requested page number
      */
     public void setPageNo(int pageNo) {
         this.pageNo = pageNo;

@@ -25,10 +25,11 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Update this Model.
-     * <p/>
+     *
      * Call only if the entity is already contained in JPA entity manager (EM).
      *
-     * @throws java.lang.IllegalStateException if the entity is not contained in EM
+     * @throws java.lang.IllegalStateException
+     *         if the entity is not contained in EM
      */
     public final void update() {
         if (!play.db.jpa.JPA.em().contains(this)) {
@@ -49,10 +50,11 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Insert a new Model.
-     * <p/>
+     *
      * Call only if the entity is not contained in JPA entity manager (EM).
      *
-     * @throws java.lang.IllegalStateException if entity is already contained in EM
+     * @throws java.lang.IllegalStateException
+     *         if entity is already contained in EM
      */
     public final void save() {
         if (play.db.jpa.JPA.em().contains(this)) {
@@ -106,7 +108,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called before an existing model is updated in the database.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void preUpdate() {
@@ -114,7 +116,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called after an existing model has been updated in the database.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void postUpdate() {
@@ -122,7 +124,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called before a new model is inserted into the database.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void preSave() {
@@ -130,7 +132,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called after a new model is inserted into the database, i.e. generated values will be populated.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void postSave() {
@@ -138,7 +140,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called before an existing model is deleted from the database.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void preDelete() {
@@ -146,7 +148,7 @@ public abstract class Model<T extends Model<T>> implements QueryProxy<T>, Serial
 
     /**
      * Called after an existing model is deleted from the database.
-     * <p/>
+     *
      * Override this method in subclasses if needed.
      */
     protected void postDelete() {

@@ -9,15 +9,11 @@ import javax.persistence.Id;
 @Entity
 public class User extends Model<User> {
 
+    public static Finder<String, User> find = new Finder<>(String.class, User.class);
     @Id
     public String email;
-
     public String name;
-
     public Integer defaultPriority;
-
     public Integer age;
-
-    public static Finder<String, User> find = new Finder<>(String.class, User.class);
 
 }

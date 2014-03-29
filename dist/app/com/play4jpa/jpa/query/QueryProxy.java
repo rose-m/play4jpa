@@ -11,14 +11,16 @@ public interface QueryProxy<T> {
     /**
      * Prepares a new {@link com.play4jpa.jpa.query.Query}.
      *
-     * @param query New {@link com.play4jpa.jpa.query.Query} object.
+     * @param query
+     *         New {@link com.play4jpa.jpa.query.Query} object.
      */
     public void prepareQuery(Query<T> query);
 
     /**
      * Last callback before the criteria query is finally executed.
      *
-     * @param executableCriteria Executable criteria
+     * @param executableCriteria
+     *         Executable criteria
      */
     void preExecute(Criteria executableCriteria);
 }

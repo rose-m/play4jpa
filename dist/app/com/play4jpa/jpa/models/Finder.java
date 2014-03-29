@@ -6,12 +6,14 @@ import java.util.List;
 
 /**
  * Play Ebean like implementation of Finder for Hibernate.
- * <p/>
+ *
  * To execute complex queries, get an empty query by calling {@link #query()} and adding restrictions.
  * See {@link com.play4jpa.jpa.query.Query} for details.
  *
- * @param <I> Type of entity ID
- * @param <T> Type of queried entity
+ * @param <I>
+ *         Type of entity ID
+ * @param <T>
+ *         Type of queried entity
  * @author Jens (mail@jensjaeger.com)
  * @author rosem
  */
@@ -25,8 +27,10 @@ public final class Finder<I, T extends Model> {
     /**
      * Create a new finder for the given ID and entity class.
      *
-     * @param idClass     Class of entity ID
-     * @param entityClass Class of queried entity
+     * @param idClass
+     *         Class of entity ID
+     * @param entityClass
+     *         Class of queried entity
      */
     @SuppressWarnings("unused")
     public Finder(Class<I> idClass, Class<T> entityClass) {
@@ -63,7 +67,8 @@ public final class Finder<I, T extends Model> {
     /**
      * Get an entity by its ID.
      *
-     * @param id ID of entity to get
+     * @param id
+     *         ID of entity to get
      * @return Entity for ID or null
      */
     public T byId(I id) {

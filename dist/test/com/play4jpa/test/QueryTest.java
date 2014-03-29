@@ -6,7 +6,6 @@ import com.play4jpa.test.models.Task;
 import com.play4jpa.test.models.User;
 import org.hibernate.NonUniqueResultException;
 import org.junit.Test;
-import play.Logger;
 
 import java.util.List;
 
@@ -312,7 +311,7 @@ public class QueryTest extends TestBase {
     }
 
     @Test
-    public void findMaxValueTest(){
+    public void findMaxValueTest() {
         int age = User.find.query().findMaxValue("age");
         assertEquals(30, age);
     }

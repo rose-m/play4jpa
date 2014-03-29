@@ -9,22 +9,16 @@ import java.util.Set;
 @Entity
 public class Task extends Model<Task> {
 
+    public static Finder<Long, Task> find = new Finder<>(Long.class, Task.class);
     @GeneratedValue
     @Id
     public Long id;
-
     public String name;
-
     public Boolean done;
-
     public Integer priority;
-
     @ManyToOne
     public User creator;
-
     @ManyToMany
     public Set<User> assignees;
-
-    public static Finder<Long, Task> find = new Finder<>(Long.class, Task.class);
 
 }
