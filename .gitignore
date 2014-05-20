@@ -13,3 +13,4 @@ samples/target
 samples/data
 dist/logs
 samples/logs
+atlassian-ide-plugin.xml
