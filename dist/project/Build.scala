@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName = "play4jpa"
-  val appVersion = "0.1-SNAPSHOT"
+  val appVersion = "0.2-SNAPSHOT"
 
   val appDependencies = Seq(
     javaCore,
