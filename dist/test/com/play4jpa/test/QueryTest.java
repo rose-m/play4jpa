@@ -1,6 +1,7 @@
 package com.play4jpa.test;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.play4jpa.jpa.query.Query;
 import com.play4jpa.test.models.Task;
 import com.play4jpa.test.models.User;
@@ -8,6 +9,7 @@ import org.hibernate.NonUniqueResultException;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -274,6 +276,23 @@ public class QueryTest extends TestBase {
         for (Task t : tasks) {
             assertTrue(lastPriority >= t.priority);
             lastPriority = t.priority;
+        }
+    }
+
+    @Test
+    public void findMaxValuesTest() {
+        List<Object> ids = Task.find.query()
+                .isNotNull("creator")
+                .findMaxValues("id", "creator");
+        assertEquals(3, ids.size());
+
+        List<Task> tasks = Task.find.query().in("id", ids).findList();
+        assertEquals(3, tasks.size());
+
+        Set<User> creators = Sets.newHashSet();
+        for (Task task : tasks) {
+            assertFalse(creators.contains(task.creator));
+            creators.add(task.creator);
         }
     }
 

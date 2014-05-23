@@ -309,6 +309,8 @@ public interface Query<T> {
      */
     Query<T> orderByDesc(String field);
 
+    List<Object> findMaxValues(String field, String groupByField);
+
     /**
      * Get the result count of the current query.
      *
