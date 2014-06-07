@@ -1,13 +1,16 @@
 package com.play4jpa.test;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.play4jpa.jpa.query.Query;
+import com.play4jpa.test.models.Comment;
 import com.play4jpa.test.models.Task;
 import com.play4jpa.test.models.User;
 import org.hibernate.NonUniqueResultException;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -278,6 +281,23 @@ public class QueryTest extends TestBase {
     }
 
     @Test
+    public void findMaxValuesTest() {
+        List<Object> ids = Task.find.query()
+                .isNotNull("creator")
+                .findMaxValues("id", "creator");
+        assertEquals(3, ids.size());
+
+        List<Task> tasks = Task.find.query().in("id", ids).findList();
+        assertEquals(3, tasks.size());
+
+        Set<User> creators = Sets.newHashSet();
+        for (Task task : tasks) {
+            assertFalse(creators.contains(task.creator));
+            creators.add(task.creator);
+        }
+    }
+
+    @Test
     public void findRowCountTest() {
         long rowCount = Task.find.query().findRowCount();
         assertEquals(NUM_DEFAULT_TASKS, rowCount);
@@ -314,5 +334,34 @@ public class QueryTest extends TestBase {
     public void findMaxValueTest() {
         int age = User.find.query().findMaxValue("age");
         assertEquals(30, age);
+    }
+
+    @Test
+    public void findPageTest() {
+        List<Task> page = Task.find.query().findPage(1, 3);
+        assertEquals(3, page.size());
+        Task t = page.get(0);
+        assertEquals("Task 1", t.name);
+        t = page.get(2);
+        assertEquals("Task 3", t.name);
+
+        page = Task.find.query().findPage(2, 3);
+        assertEquals(2, page.size());
+
+        List<Comment> comments = Comment.find.query()
+                .join("creator")
+                .eq("creator.name", "jens")
+                .findPage(1, 13);
+        assertEquals(13, comments.size());
+        assertEquals("1", comments.get(0).text);
+        assertEquals("13", comments.get(12).text);
+
+        comments = Comment.find.query()
+                .join("creator")
+                .eq("creator.name", "jens")
+                .findPage(2, 13);
+        assertEquals(2, comments.size());
+        assertEquals("14", comments.get(0).text);
+        assertEquals("15", comments.get(1).text);
     }
 }

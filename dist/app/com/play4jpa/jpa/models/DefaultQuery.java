@@ -1,6 +1,7 @@
 package com.play4jpa.jpa.models;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.play4jpa.jpa.query.PagedQueryIterator;
 import com.play4jpa.jpa.query.Query;
@@ -62,6 +63,10 @@ public class DefaultQuery<T> implements Query<T> {
      * Indicates whether an ORDER BY clause is present
      */
     private boolean hasOrder = false;
+    /**
+     * List for applied projections
+     */
+    private ProjectionList projections = Projections.projectionList();
     /**
      * Accumulated criteria for query.
      */
@@ -314,6 +319,24 @@ public class DefaultQuery<T> implements Query<T> {
     }
 
     @Override
+    public List<Object> findMaxValues(String field, String groupByField) {
+        // TODO fix this
+        projections.add(Projections.groupProperty(alialize(groupByField)));
+        projections.add(Projections.max(alialize(field)));
+        criteria.setProjection(projections);
+
+        List results = executablePlainCriteria().list();
+
+        List<Object> values = Lists.newArrayList();
+        for (Object result : results) {
+            Object[] row = (Object[]) result;
+            values.add(row[1]);
+        }
+
+        return values;
+    }
+
+    @Override
     public long findRowCount() {
         if (hasOrder) {
             throw new IllegalStateException("Cannot count rows when ORDER BY is present");
@@ -497,6 +520,12 @@ public class DefaultQuery<T> implements Query<T> {
     private Criteria executableCriteria(boolean forRootEntity) {
         HibernateEntityManager entityManager = JPA.em().unwrap(HibernateEntityManager.class);
         Session session = entityManager.getSession();
+
+        /*boolean appliedProjections = false;
+        if (projections.getLength() != 0) {
+            appliedProjections = true;
+            criteria.setProjection(projections);
+        }*/
         Criteria executableCriteria = criteria.getExecutableCriteria(session);
 
         if (forRootEntity) {
@@ -511,6 +540,10 @@ public class DefaultQuery<T> implements Query<T> {
         if (proxy != null) {
             proxy.preExecute(executableCriteria);
         }
+
+        /*if (appliedProjections) {
+            criteria.setProjection(null);
+        }*/
 
         return executableCriteria;
     }
