@@ -1,0 +1,63 @@
+- !package com.play4jpa.test.models
+
+- !import fixtures/users.yaml
+
+- Comment(comment1):
+    creator: User(jens)
+    text: 1
+
+- Comment(comment2):
+    creator: User(jens)
+    text: 2
+
+- Comment(comment3):
+    creator: User(jens)
+    text: 3
+
+- Comment(comment4):
+    creator: User(jens)
+    text: 4
+
+- Comment(comment5):
+    creator: User(jens)
+    text: 5
+
+- Comment(comment6):
+    creator: User(jens)
+    text: 6
+
+- Comment(comment7):
+    creator: User(jens)
+    text: 7
+
+- Comment(comment8):
+    creator: User(jens)
+    text: 8
+
+- Comment(comment9):
+    creator: User(jens)
+    text: 9
+
+- Comment(comment10):
+    creator: User(jens)
+    text: 10
+
+- Comment(comment11):
+    creator: User(jens)
+    text: 11
+
+- Comment(comment12):
+    creator: User(jens)
+    text: 12
+
+- Comment(comment13):
+    creator: User(jens)
+    text: 13
+
+- Comment(comment14):
+    creator: User(jens)
+    text: 14
+
+- Comment(comment15):
+    creator: User(jens)
+    text: 15
