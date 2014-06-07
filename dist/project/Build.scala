@@ -5,13 +5,13 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName = "play4jpa"
-  val appVersion = "0.2-SNAPSHOT"
+  val appVersion = "0.3-SNAPSHOT"
 
   val appDependencies = Seq(
     javaCore,
     javaJdbc,
     javaJpa,
-    "org.hibernate" % "hibernate-entitymanager" % "4.2.7.Final"
+    "org.hibernate" % "hibernate-entitymanager" % "4.3.5.Final"
   )
 
   lazy val fixy = play.Project(
